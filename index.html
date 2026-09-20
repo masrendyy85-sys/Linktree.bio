@@ -1,0 +1,749 @@
+<!DOCTYPE html> <html lang="id"> <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Linktree</title>
+
+<!-- Bootstrap Icons -->
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+>
+
+<style>
+
+    /* =====================================
+       RESET
+    ===================================== */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        min-height: 100vh;
+
+        font-family:
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Arial,
+            sans-serif;
+
+        color: #fff;
+
+        background: #111;
+
+        overflow-x: hidden;
+    }
+
+
+    /* =====================================
+       VIDEO BACKGROUND
+    ===================================== */
+
+    .video-bg {
+        position: fixed;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        overflow: hidden;
+
+        z-index: -3;
+    }
+
+    .video-bg video {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        display: block;
+    }
+
+
+    /* =====================================
+       DARK OVERLAY
+    ===================================== */
+
+    .overlay {
+        position: fixed;
+
+        inset: 0;
+
+        width: 100%;
+        height: 100%;
+
+        background:
+            linear-gradient(
+                180deg,
+                rgba(0, 0, 0, .35),
+                rgba(0, 0, 0, .65)
+            );
+
+        z-index: -2;
+    }
+
+
+    /* =====================================
+       MAIN
+    ===================================== */
+
+    .container {
+        width: 100%;
+
+        max-width: 650px;
+
+        margin: auto;
+
+        padding:
+            45px 15px
+            30px;
+    }
+
+
+    /* =====================================
+       PROFILE
+    ===================================== */
+
+    .profile {
+        text-align: center;
+
+        margin-bottom: 28px;
+    }
+
+    .avatar {
+        width: 105px;
+        height: 105px;
+
+        object-fit: cover;
+
+        border-radius: 50%;
+
+        border:
+            3px solid
+            rgba(255,255,255,.9);
+
+        box-shadow:
+            0 10px 30px
+            rgba(0,0,0,.4);
+
+        margin-bottom: 15px;
+    }
+
+    .profile h1 {
+        font-size: 25px;
+
+        font-weight: 700;
+
+        margin-bottom: 5px;
+
+        text-shadow:
+            0 2px 10px
+            rgba(0,0,0,.5);
+    }
+
+    .username {
+        font-size: 14px;
+
+        color:
+            rgba(255,255,255,.75);
+
+        margin-bottom: 8px;
+    }
+
+    .bio {
+        font-size: 14px;
+
+        color:
+            rgba(255,255,255,.9);
+
+        line-height: 1.5;
+
+        margin-bottom: 18px;
+    }
+
+
+    /* =====================================
+       SOCIAL
+    ===================================== */
+
+    .social {
+        display: flex;
+
+        justify-content: center;
+
+        gap: 10px;
+    }
+
+    .social a {
+        width: 42px;
+        height: 42px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        color: #fff;
+
+        text-decoration: none;
+
+        border-radius: 50%;
+
+        background:
+            rgba(255,255,255,.12);
+
+        border:
+            1px solid
+            rgba(255,255,255,.3);
+
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+
+        transition: .25s ease;
+    }
+
+    .social a:hover {
+        transform: translateY(-4px);
+
+        background:
+            rgba(255,255,255,.25);
+    }
+
+    .social i {
+        font-size: 18px;
+    }
+
+
+    /* =====================================
+       LINKS
+    ===================================== */
+
+    .links {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    /* =====================================
+       GLASS BUTTON
+    ===================================== */
+
+    .link {
+        position: relative;
+
+        display: flex;
+
+        align-items: center;
+
+        width: 100%;
+
+        min-height: 76px;
+
+        padding: 9px;
+
+        color: #fff;
+
+        text-decoration: none;
+
+        border-radius: 30px;
+
+        background:
+            rgba(255,255,255,.13);
+
+        border:
+            1px solid
+            rgba(255,255,255,.28);
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+
+        box-shadow:
+            0 8px 30px
+            rgba(0,0,0,.2),
+
+            inset 0 1px 0
+            rgba(255,255,255,.15);
+
+        transition:
+            .25s ease;
+    }
+
+    .link:hover {
+        color: #fff;
+
+        transform:
+            translateY(-4px)
+            scale(1.01);
+
+        background:
+            rgba(255,255,255,.22);
+
+        box-shadow:
+            0 15px 35px
+            rgba(0,0,0,.3);
+    }
+
+
+    /* =====================================
+       THUMBNAIL
+    ===================================== */
+
+    .thumb {
+        width: 58px;
+        height: 58px;
+
+        flex-shrink: 0;
+
+        object-fit: cover;
+
+        border-radius: 13px;
+
+        border:
+            1px solid
+            rgba(255,255,255,.25);
+    }
+
+
+    /* =====================================
+       TEXT
+    ===================================== */
+
+    .link-text {
+        flex: 1;
+
+        padding:
+            0 14px;
+    }
+
+    .link-title {
+        display: block;
+
+        font-size: 15px;
+
+        font-weight: 600;
+
+        margin-bottom: 3px;
+    }
+
+    .link-description {
+        display: block;
+
+        font-size: 12px;
+
+        color:
+            rgba(255,255,255,.7);
+    }
+
+
+    /* =====================================
+       ARROW
+    ===================================== */
+
+    .arrow {
+        width: 42px;
+        height: 42px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        border-radius: 50%;
+
+        background:
+            rgba(255,255,255,.1);
+
+        border:
+            1px solid
+            rgba(255,255,255,.18);
+
+        transition: .25s ease;
+    }
+
+    .link:hover .arrow {
+        background:
+            rgba(255,255,255,.25);
+
+        transform:
+            rotate(5deg);
+    }
+
+
+    /* =====================================
+       FOOTER
+    ===================================== */
+
+    footer {
+        text-align: center;
+
+        padding-top: 30px;
+
+        font-size: 12px;
+
+        color:
+            rgba(255,255,255,.6);
+    }
+
+
+    /* =====================================
+       MOBILE
+    ===================================== */
+
+    @media (max-width: 600px) {
+
+        .container {
+            padding:
+                35px 15px
+                25px;
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+        }
+
+        .profile h1 {
+            font-size: 22px;
+        }
+
+        .bio {
+            font-size: 13px;
+        }
+
+        .link {
+            min-height: 70px;
+
+            border-radius: 16px;
+        }
+
+        .thumb {
+            width: 52px;
+            height: 52px;
+
+            border-radius: 11px;
+        }
+
+        .link-title {
+            font-size: 14px;
+        }
+
+        .link-description {
+            font-size: 11px;
+        }
+
+        .arrow {
+            width: 36px;
+            height: 36px;
+        }
+
+    }
+
+</style>
+
+</head> <body>
+<!-- =====================================
+     VIDEO BACKGROUND
+====================================== -->
+
+<div class="video-bg">
+
+    <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+    >
+
+        <source
+            src="uwu.mp4"
+            type="video/mp4"
+        >
+
+    </video>
+
+</div>
+
+
+<!-- OVERLAY -->
+
+<div class="overlay"></div>
+
+
+
+<!-- =====================================
+     CONTENT
+====================================== -->
+
+<main class="container">
+
+
+    <!-- PROFILE -->
+
+    <section class="profile">
+
+        <img
+            src="uwu.png"
+            alt="Profile"
+            class="avatar"
+        >
+
+        <h1>
+            𝟒𝟒'𝐑𝐞𝐧𝐝𝐢𝐬𝐮𝐤𝐚𝐛𝐞𝐛
+        </h1>
+
+        <p class="username">
+            @𝟒𝟒'𝐑𝐞𝐧𝐝𝐢𝐬𝐮𝐤𝐚𝐛𝐞𝐛
+        </p>
+
+        <p class="bio">
+            Content Creator • Digital Creator • Entrepreneur
+        </p>
+
+
+        <!-- SOCIAL MEDIA -->
+
+        <div class="social">
+
+            <a
+                href="https://www.instagram.com/44rendisukaabeb?stkn=MXRmc2xnMzB2cTFwcQ=="
+                target="_blank"
+                aria-label="Instagram"
+            >
+                <i class="bi bi-instagram"></i>
+            </a>
+
+            <a
+                href="https:www.tiktok.com/@404rendisukabeb"
+                target="_blank"
+                aria-label="TikTok"
+            >
+                <i class="bi bi-tiktok"></i>
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         LINK BUTTONS
+    ====================================== -->
+
+    <section class="links">
+
+
+        <!-- LINK 1 -->
+
+        <a
+            href="https://t.me/rendisukabeb"
+            target="_blank"
+            class="link"
+        >
+
+            <img
+                src="uwu.png"
+                alt=""
+                class="thumb"
+            >
+
+            <div class="link-text">
+
+                <span class="link-title">
+                    order am prem ? 1K 1TAHUN PRIVATE
+                </span>
+
+                <span class="link-description">
+                    order aja cuy ! admin respon kok
+                </span>
+
+            </div>
+
+            <div class="arrow">
+
+                <i class="bi bi-arrow-up-right"></i>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- LINK 2 -->
+
+        <a
+            href="https://t.me/rendisukabeb"
+            target="_blank"
+            class="link"
+        >
+
+            <img
+                src="uwu.png"
+                alt=""
+                class="thumb"
+            >
+
+            <div class="link-text">
+
+                <span class="link-title">
+                    order am prem ? 1K 1 TAHUN SHARING
+                </span>
+
+                <span class="link-description">
+                    order aja cuy ! admin respon kok
+                </span>
+
+            </div>
+
+            <div class="arrow">
+
+                <i class="bi bi-arrow-up-right"></i>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- LINK 3 -->
+
+        <a
+            href="https://sociabuzz.com/rendisukabeb/tribe"
+            target="_blank"
+            class="link"
+        >
+
+            <img
+                src="uwu.png"
+                alt=""
+                class="thumb"
+            >
+
+            <div class="link-text">
+
+                <span class="link-title">
+                    SosiaBuzz
+                </span>
+
+                <span class="link-description">
+                    Traktir mimin dong
+                </span>
+
+            </div>
+
+            <div class="arrow">
+
+                <i class="bi bi-arrow-up-right"></i>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- LINK 4 -->
+
+        <a
+            href="#"
+            target="_blank"
+            class="link"
+        >
+
+            <img
+                src="uwu.png"
+                alt=""
+                class="thumb"
+            >
+
+            <div class="link-text">
+
+                <span class="link-title">
+                    𝟒𝟒'𝐑𝐞𝐧𝐝𝐢𝐬𝐮𝐤𝐚𝐛𝐞𝐛
+                </span>
+
+                <span class="link-description">
+                    Join Saluran Ngab
+                </span>
+
+            </div>
+
+            <div class="arrow">
+
+                <i class="bi bi-telegram"></i>
+
+            </div>
+
+        </a>
+
+
+
+        <!-- LINK 5 -->
+
+        <a
+            href="https://whatsapp.com/channel/0029Vb8ijK4LdQel0Ex7hZ41"
+            target="_blank"
+            class="link"
+        >
+
+            <img
+                src="uwu.png"
+                alt=""
+                class="thumb"
+            >
+
+            <div class="link-text">
+
+                <span class="link-title">
+                    𝟒𝟒'𝐑𝐞𝐧𝐝𝐢𝐬𝐮𝐤𝐚𝐛𝐞𝐛
+                </span>
+
+                <span class="link-description">
+                    Join Saluran Ngab
+                </span>
+
+            </div>
+
+            <div class="arrow">
+
+                <i class="bi bi-whatsapp"></i>
+
+            </div>
+
+        </a>
+
+
+    </section>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 𝟒𝟒'𝐑𝐞𝐧𝐝𝐢𝐬𝐮𝐤𝐚𝐛𝐞𝐛
+
+    </footer>
+
+
+</main>
+
+</body> </html>
